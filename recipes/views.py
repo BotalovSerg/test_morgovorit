@@ -1,11 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import ListRecipes, ListProducts
+from recipes.models import ListRecipes, ListProducts
 
 
 
 def all(request):
     res = ListRecipes.objects.all()
     context = {'res': res}
-    print(res[0].recipes_one.get(id=1))
     return render(request, 'recipes/index.html', context=context)
+
+def get_recipet(request, id_recipet):
+    question = get_object_or_404(ListRecipes, id=id_recipet)
+    cook = question.name
+    # for i in question.recipes_one.all():
+    #     print(i.product_id)
+    listproducts = [ListProducts.objects.get(id=i.product_id) for i in question.recipes_one.all()]
+    context = {
+         'cook': cook,
+         'listproducts': listproducts
+    }
+    return render(request, 'recipes/one.html', context=context)
