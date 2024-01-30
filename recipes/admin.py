@@ -1,19 +1,18 @@
 from django.contrib import admin
-from .models import Products, Recipes, ProductToRecipe
+from .models import Product, Recipe, Ingredient
 
 
-class ProductRecipeInline(admin.TabularInline):
-    model = ProductToRecipe
-    raw_id_fields = ['rec']
+# class ProductRecipeInline(admin.TabularInline):
+#     model = ProductToRecipe
+#     raw_id_fields = ['rec']
 
 
 
-@admin.register(Recipes)
+@admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
 
-    inlines = [ProductRecipeInline]
 
-@admin.register(Products)
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'count_using']
+    list_display = ['id', 'name']

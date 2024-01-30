@@ -2,22 +2,25 @@ from django.db import models
 
 
 
-class Recipes(models.Model):
-    name = models.CharField(max_length=200)
-
-    def __str__(self) -> str:
-        return self.name
-    
-class Products(models.Model):
-    name = models.CharField(max_length=200)
+class Product(models.Model):
+    name = models.CharField(max_length=255)
     count_using = models.IntegerField(default=0)
 
     def __str__(self) -> str:
         return self.name
+
+
+class Recipe(models.Model):
+    name = models.CharField(max_length=255)
+    ingredients = models.ManyToManyField(Product, through='Ingredient')
+
+    def __str__(self) -> str:
+        return self.name
     
-class ProductToRecipe(models.Model):
-    prod = models.ForeignKey(Products, on_delete=models.CASCADE)
-    rec = models.ForeignKey(Recipes, related_name='products', on_delete=models.CASCADE)
+    
+class Ingredient(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name='products', on_delete=models.CASCADE)
     weight = models.IntegerField(default=0)
 
     def __str__(self) -> str:
