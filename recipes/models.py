@@ -19,7 +19,7 @@ class Recipe(models.Model):
     
     
 class Ingredient(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='recipe_to', on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, related_name='products', on_delete=models.CASCADE)
     weight = models.IntegerField(default=0)
 
