@@ -1,15 +1,15 @@
 
 
 <table border="1">
-    <caption>Таблица рецептов</caption>
+    <caption>List recipes</caption>
     <tr>
         <th>ID</th>
         <th>Наименование</th>
     </tr>
-    {% for i in res %}
+    {% for item in total %}
         <tr>
-            <td>{{i.id}}</td>
-            <td>{{i.name}}</td>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
         </tr>        
     {% endfor %}
 </table>
